@@ -16,14 +16,27 @@
   flex-direction: column;
 }
 
-.title{
+#title{
   background-image: url('/wood.png');
   background-repeat: no-repeat;
   background-size: contain;
-  min-height: 8rem;
+  min-width: 40rem;
+  min-height:10rem;
   display: flex;
   align-items: center;
   margin:2rem 2rem 1.5rem 2rem;
+}
+
+#score{
+  background-image: url('/leaf.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-width: 12rem;
+  min-height: 12rem;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right:5rem;
 }
 
 
