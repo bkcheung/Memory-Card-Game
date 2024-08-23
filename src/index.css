@@ -3,6 +3,28 @@
 @import "tailwindcss/utilities";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Chalkduster', 'Chalkboard', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+#page{
+  background-image: url('/ac.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.title{
+  background-image: url('/wood.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  margin:2rem 2rem 1.5rem 2rem;
+}
+
+
 

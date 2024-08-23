@@ -1,10 +1,12 @@
 import './index.css'
+import Header from './Header'
 
 function App() {
 
   return (
-    <> Hello
-    </>
+    <div id='page'> 
+      <Header></Header>
+    </div>
   )
 }
 
