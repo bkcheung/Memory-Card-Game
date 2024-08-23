@@ -5,7 +5,6 @@
 :root {
   font-family: 'Chalkduster', 'Chalkboard', system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
-
 #page{
   background-image: url('/ac.jpg');
   background-size: cover;
@@ -14,8 +13,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-
 #title{
   background-image: url('/wood.png');
   background-repeat: no-repeat;
@@ -26,7 +25,6 @@
   align-items: center;
   margin:2rem 2rem 1.5rem 2rem;
 }
-
 #score{
   background-image: url('/leaf.png');
   background-repeat: no-repeat;
@@ -37,6 +35,18 @@
   align-items: center;
   margin-left: auto;
   margin-right:5rem;
+}
+#game{
+  flex:1;
+  display: grid;
+  grid-template-columns: repeat(5, 12rem);
+  grid-template-rows: repeat(2,12rem);
+  grid-gap: 2rem;
+  padding: 2rem;
+}
+.card{
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
 }
 
 

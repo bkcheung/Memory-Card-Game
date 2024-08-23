@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './index.css'
 import Header from './Header'
+import GameArea from './GameArea';
 
 function App() {
   const storeScore = localStorage.getItem('highScore')?Number(localStorage.getItem('highScore')):0;
@@ -20,7 +21,7 @@ function App() {
   return (
     <div id='page'> 
       <Header score={score} highScore={highScore}></Header>
-      <button onClick={incrementScore}>Click</button>
+      <GameArea score={incrementScore}/>
     </div>
   )
 }
