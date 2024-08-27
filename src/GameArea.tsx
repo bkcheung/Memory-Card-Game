@@ -3,10 +3,13 @@ import { useState, useEffect } from "react"
 
 interface gameProps {
     score: () => void
+    resetScore: () => void
 }
-function GameArea({ score }: gameProps) {
+function GameArea({ score, resetScore }: gameProps) {
     const [villagers, setVillagers] = useState<Villager[]>([])
-    const [cards, setCards] = useState<JSX.Element[]>([]);
+    const [cards, setCards] = useState<JSX.Element[]>([])
+    const [clicked, setClicked] = useState<string[]>([])
+
     useEffect(() => {
         const getCharData = async () => {
             try {
@@ -32,14 +35,16 @@ function GameArea({ score }: gameProps) {
             const newCards = randVillagers.map((villager, index)=>{
                 return <Card
                         key={index}
-                        score={score} 
-                        vName={villager.name} 
-                        img={villager.image_url}
+                        score={score}
+                        resetScore = {resetScore}
+                        villager = {villager}
+                        clicked = {clicked}
+                        setClicked = {setClicked}
                         ></Card>
             })
             setCards(newCards);
         }     
-    }, [villagers, score])
+    }, [villagers, clicked, score, resetScore])
     
     return (
         <div id="game">
@@ -47,7 +52,7 @@ function GameArea({ score }: gameProps) {
         </div>
     )
 }
-type Villager = {
+export type Villager = {
     name: string;
     image_url: string;
 }
@@ -75,4 +80,5 @@ function randomIds() {
     }
     return ids;
 }
+
 export default GameArea
