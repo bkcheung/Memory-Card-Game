@@ -1,5 +1,6 @@
 import Card from "./Card"
 import { useState, useEffect } from "react"
+import cx from "classnames"
 
 interface gameProps {
     score: () => void
@@ -9,6 +10,7 @@ function GameArea({ score, resetScore }: gameProps) {
     const [villagers, setVillagers] = useState<Villager[]>([])
     const [cards, setCards] = useState<JSX.Element[]>([])
     const [clicked, setClicked] = useState<string[]>([])
+    const [reset, setReset] = useState(false);
 
     useEffect(() => {
         const getCharData = async () => {
@@ -36,20 +38,33 @@ function GameArea({ score, resetScore }: gameProps) {
                 return <Card
                         key={index}
                         score={score}
-                        resetScore = {resetScore}
                         villager = {villager}
                         clicked = {clicked}
                         setClicked = {setClicked}
+                        setReset = {setReset}
                         ></Card>
             })
             setCards(newCards);
         }     
-    }, [villagers, clicked, score, resetScore])
+    }, [villagers, clicked, score])
     
     return (
-        <div id="game">
-            {cards}
+        <div className="flex justify-center">
+            <div id="game">
+                {cards}
+            </div>
+            <div className={cx("bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",!reset && 'hidden')}>
+                <div className=" bg-white/80 flex flex-col items-center p-16 rounded-xl">Game over
+                    <button 
+                        className="m-2 p-2 border-2 border-solid border-gray-400"
+                        onClick={()=>{resetScore(); setReset(false)}}>
+                        Play Again!
+                    </button>
+                </div>
+                
+            </div>
         </div>
+        
     )
 }
 export type Villager = {
@@ -59,7 +74,7 @@ export type Villager = {
 function parseResponse(res:Villager[]){
     const villagers: Villager[] = []
     if (res.length) {
-        const randIds = randomIds();
+        const randIds = randomIds(res.length);
         randIds.map((id:number)=>{
             const parsedVillager = {name:res[id].name, 'image_url':res[id].image_url};
             villagers.push(parsedVillager)
@@ -67,12 +82,12 @@ function parseResponse(res:Villager[]){
     }
     return villagers
 }
-function randomIds() {
+function randomIds(numVillagers:number) {
     const numCards = 8;
     const ids: number[] = [];
     let i = 0;
     while (i < numCards) {
-        const index = Math.floor(Math.random() * numCards);
+        const index = Math.floor(Math.random() * numVillagers);
         if (!ids.includes(index)) {
             ids.push(index);
             i++;
