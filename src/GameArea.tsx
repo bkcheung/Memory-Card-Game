@@ -1,40 +1,12 @@
 import Card from "./Card"
 import { useState, useEffect } from "react"
 
-type Villager = {
-    name: string;
-    image_url: string;
-}
-function parseResponse(res:Villager[]){
-    const villagers: Villager[] = []
-    if (res.length) {
-        const randIds = randomIds(10);
-        randIds.map((id:number)=>{
-            const parsedVillager = {name:res[id].name, 'image_url':res[id].image_url};
-            villagers.push(parsedVillager)
-        })
-    }
-    return villagers
-}
-function randomIds(numCards: number) {
-    const ids: number[] = [];
-    let i = 0;
-    while (i < numCards) {
-        const index = Math.floor(Math.random() * numCards);
-        if (!ids.includes(index)) {
-            ids.push(index);
-            i++;
-        }
-    }
-    return ids;
-}
 interface gameProps {
     score: () => void
 }
-
 function GameArea({ score }: gameProps) {
+    const [villagers, setVillagers] = useState<Villager[]>([])
     const [cards, setCards] = useState<JSX.Element[]>([]);
-
     useEffect(() => {
         const getCharData = async () => {
             try {
@@ -46,29 +18,61 @@ function GameArea({ score }: gameProps) {
                     }
                 })
                 if (!response.ok) throw new Error('Error, please check API request');
-                await response.json().then((responseVillagers: Villager[]) => {
-                    const villagers = parseResponse(responseVillagers);
-                    const newCards = villagers.map((villager, index)=>{
-                        return <Card
-                                key={index}
-                                score={score} 
-                                vName={villager.name} 
-                                img={villager.image_url}
-                                ></Card>
-                    })
-                    setCards(newCards);
-                })
+                const villagers = await response.json();
+                setVillagers(villagers);
             } catch (error) {
                 console.log(error);
             }
         }
         getCharData();
-    }, [score])
-
+    }, []) //only call API when mounting component
+    useEffect(() => {
+        if(villagers.length){
+            const randVillagers = parseResponse(villagers);
+            const newCards = randVillagers.map((villager, index)=>{
+                return <Card
+                        key={index}
+                        score={score} 
+                        vName={villager.name} 
+                        img={villager.image_url}
+                        ></Card>
+            })
+            setCards(newCards);
+        }     
+    }, [villagers, score])
+    
     return (
         <div id="game">
             {cards}
         </div>
     )
+}
+type Villager = {
+    name: string;
+    image_url: string;
+}
+function parseResponse(res:Villager[]){
+    const villagers: Villager[] = []
+    if (res.length) {
+        const randIds = randomIds();
+        randIds.map((id:number)=>{
+            const parsedVillager = {name:res[id].name, 'image_url':res[id].image_url};
+            villagers.push(parsedVillager)
+        })
+    }
+    return villagers
+}
+function randomIds() {
+    const numCards = 8;
+    const ids: number[] = [];
+    let i = 0;
+    while (i < numCards) {
+        const index = Math.floor(Math.random() * numCards);
+        if (!ids.includes(index)) {
+            ids.push(index);
+            i++;
+        }
+    }
+    return ids;
 }
 export default GameArea

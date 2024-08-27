@@ -39,15 +39,10 @@
 #game{
   flex:1;
   display: grid;
-  grid-template-columns: repeat(5, 12rem);
+  grid-template-columns: repeat(4, 12rem);
   grid-template-rows: repeat(2,12rem);
   grid-gap: 2rem;
   padding: 2rem;
 }
-.card{
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 1rem;
-}
-
 
 
