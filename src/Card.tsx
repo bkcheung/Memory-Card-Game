@@ -16,7 +16,6 @@ function Card({ score, villager, clicked, setClicked, setReset }: cardProps) {
           setClicked([...clicked, `${villager.name}`]);
           score();
         } else {
-          setClicked([]);
           setReset(true);
         }
       }}

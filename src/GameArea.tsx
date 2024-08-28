@@ -13,6 +13,7 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   const [cards, setCards] = useState<JSX.Element[]>([]);
   const [clicked, setClicked] = useState<string[]>([]);
   const [reset, setReset] = useState(false);
+  const [won, setWon] = useState(false);
 
   useEffect(() => {
     const getCharData = async () => {
@@ -38,20 +39,23 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   }, []); //only call API when mounting component
   useEffect(() => {
     if (villagers.length) {
-      const rVillagers = randVillagers(villagers, clicked);
-      const newCards = rVillagers.map((villager, index) => {
-        return (
-          <Card
-            key={index}
-            score={score}
-            villager={villager}
-            clicked={clicked}
-            setClicked={setClicked}
-            setReset={setReset}
-          ></Card>
-        );
-      });
-      setCards(newCards);
+      if(clicked.length===villagers.length) setWon(true);
+      else{
+        const rVillagers = randVillagers(villagers, clicked);
+        const newCards = rVillagers.map((villager, index) => {
+          return (
+            <Card
+              key={index}
+              score={score}
+              villager={villager}
+              clicked={clicked}
+              setClicked={setClicked}
+              setReset={setReset}
+            ></Card>
+          );
+        });
+        setCards(newCards);
+      }
     }
   }, [villagers, clicked, score]);
 
@@ -63,13 +67,27 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
         className={cx(
           "bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
           !reset && "hidden",
-        )}
-      >
+        )}>
         <button
           id="gameover"
           onClick={() => {
             resetScore();
             setReset(false);
+            setClicked([]);
+          }}
+        ></button>
+      </div>
+      <div
+        className={cx(
+          "bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
+          !won && "hidden",
+        )}>
+        <button
+          id="gameWon"
+          onClick={() => {
+            resetScore();
+            setWon(false);
+            setClicked([]);
           }}
         ></button>
       </div>

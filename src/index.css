@@ -53,6 +53,15 @@
   height: 12rem;
   border-radius: 0.5rem;
 }
+#gameWon {
+  background-image: url("/gameWon.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  width: 20rem;
+  height: 12rem;
+  border-radius: 0.5rem;
+}
 #music {
   background-image: url("/music.png");
   background-repeat: no-repeat;
@@ -83,6 +92,11 @@
   #gameover {
     width: 35rem;
     height: 20rem;
+    border-radius: 2rem;
+  }
+  #gameWon {
+    width: 35rem;
+    height: 22rem;
     border-radius: 2rem;
   }
   #music {
