@@ -39,7 +39,6 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   }, []); //only call API when mounting component
   useEffect(() => {
     if (villagers.length) {
-console.log(clicked);
       if(clicked.length===villagers.length) setWon(true);
       else{
         const rVillagers = randVillagers(villagers, clicked);
