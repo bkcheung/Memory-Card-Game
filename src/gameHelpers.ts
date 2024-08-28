@@ -4,10 +4,11 @@ export type Villager = {
   };
 
 export function randVillagers(res: Villager[], clicked:string[]) {
-    const villagers: Villager[] = [];
+    let villagers: Villager[] = [];
     let validCards = false; //to make sure there is a valid card to click
     if (res.length) {
       while(!validCards) {
+        villagers = [];
         const randIds = randomIds(res.length, 6);
         randIds.map((id: number) => {
           const villName = res[id].name;
