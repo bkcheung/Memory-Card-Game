@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './index.css'
 import Header from './Header'
 import GameArea from './GameArea';
+import Footer from './Footer';
 
 function App() {
   const storeScore = localStorage.getItem('highScore')?Number(localStorage.getItem('highScore')):0;
@@ -28,6 +29,7 @@ function App() {
         score={incrementScore}
         resetScore={resetScore}
       ></GameArea>
+      <Footer/>
     </div>
   )
 }
