@@ -4,10 +4,11 @@
 
 /*For mobile and general*/
 :root {
-  font-family: 'Chalkduster', 'Chalkboard', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Chalkduster", "Chalkboard", system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
 }
-#page{
-  background-image: url('/ac.jpg');
+#page {
+  background-image: url("/ac.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -17,15 +18,15 @@
   align-items: center;
   justify-content: space-evenly;
 }
-#title{
-  background-image: url('/wood.png');
+#title {
+  background-image: url("/wood.png");
   background-repeat: no-repeat;
   background-size: contain;
-  min-width:16rem;
-  min-height:4.75rem;
+  min-width: 16rem;
+  min-height: 4.75rem;
 }
-#score{
-  background-image: url('/leaf.png');
+#score {
+  background-image: url("/leaf.png");
   background-repeat: no-repeat;
   background-size: contain;
   display: flex;
@@ -36,59 +37,57 @@
   min-width: 7rem;
   min-height: 7rem;
 }
-#game{
-  flex:1;
+#game {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 9rem);
-  grid-template-rows: repeat(3,9rem);
+  grid-template-rows: repeat(3, 9rem);
   grid-gap: 1.5rem;
   padding: 1rem;
 }
-#gameover{
-  background-image: url('/gameover.jpg');
+#gameover {
+  background-image: url("/gameover.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 20rem;
   height: 12rem;
   border-radius: 0.5rem;
 }
-#music{
-  background-image: url('/music.png');
+#music {
+  background-image: url("/music.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   width: 5rem;
   height: 5rem;
 }
-#music.off{
-  background-image: url('/music-off.png');
+#music.off {
+  background-image: url("/music-off.png");
 }
 /*For Desktop*/
-@media screen and (min-width:768px){
-  #title{
+@media screen and (min-width: 768px) {
+  #title {
     min-width: 28rem;
-    min-height:8rem;
-    margin:2rem 2rem 1.5rem 2rem;
+    min-height: 8rem;
+    margin: 2rem 2rem 1.5rem 2rem;
   }
-  #score{
+  #score {
     min-width: 12rem;
     min-height: 12rem;
   }
-  #game{
+  #game {
     grid-template-columns: repeat(3, 12rem);
-    grid-template-rows: repeat(2,12rem);
+    grid-template-rows: repeat(2, 12rem);
     grid-gap: 2rem;
   }
-  #gameover{
+  #gameover {
     width: 35rem;
     height: 20rem;
     border-radius: 2rem;
   }
-  #music{
+  #music {
     width: 4rem;
     height: 4rem;
     margin: 1rem;
   }
 }
-
-
