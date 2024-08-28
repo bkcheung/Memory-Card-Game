@@ -28,13 +28,13 @@
   background-image: url('/leaf.png');
   background-repeat: no-repeat;
   background-size: contain;
-  min-width: 7rem;
-  min-height: 7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
+  min-width: 7rem;
+  min-height: 7rem;
 }
 #game{
   flex:1;
@@ -52,44 +52,42 @@
   height: 12rem;
   border-radius: 0.5rem;
 }
+#music{
+  background-image: url('/music.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 5rem;
+  height: 5rem;
+}
+#music.off{
+  background-image: url('/music-off.png');
+}
 /*For Desktop*/
 @media screen and (min-width:768px){
   #title{
-    background-image: url('/wood.png');
-    background-repeat: no-repeat;
-    background-size: contain;
     min-width: 28rem;
     min-height:8rem;
-    display: flex;
-    align-items: center;
     margin:2rem 2rem 1.5rem 2rem;
   }
   #score{
-    background-image: url('/leaf.png');
-    background-repeat: no-repeat;
-    background-size: contain;
     min-width: 12rem;
     min-height: 12rem;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right:5rem;
   }
   #game{
-    flex:1;
-    display: grid;
     grid-template-columns: repeat(3, 12rem);
     grid-template-rows: repeat(2,12rem);
     grid-gap: 2rem;
-    padding: 1rem;
   }
   #gameover{
-    background-image: url('/gameover.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
     width: 35rem;
     height: 20rem;
     border-radius: 2rem;
+  }
+  #music{
+    width: 4rem;
+    height: 4rem;
+    margin: 1rem;
   }
 }
 
