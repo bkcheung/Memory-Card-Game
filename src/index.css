@@ -44,5 +44,11 @@
   grid-gap: 2rem;
   padding: 2rem;
 }
-
-
+#gameover{
+  background-image: url('/gameover.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 35rem;
+  height: 20rem;
+  border-radius: 2rem;
+}

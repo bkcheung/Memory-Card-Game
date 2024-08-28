@@ -54,14 +54,10 @@ function GameArea({ score, resetScore }: gameProps) {
                 {cards}
             </div>
             <div className={cx("bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",!reset && 'hidden')}>
-                <div className=" bg-white/80 flex flex-col items-center p-16 rounded-xl">Game over
                     <button 
-                        className="m-2 p-2 border-2 border-solid border-gray-400"
+                        id="gameover"
                         onClick={()=>{resetScore(); setReset(false)}}>
-                        Play Again!
                     </button>
-                </div>
-                
             </div>
         </div>
         
