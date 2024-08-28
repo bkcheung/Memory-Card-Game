@@ -16,12 +16,12 @@ function App() {
   const resetScore = ()=>{
     setScore(0);
   }
-
   useEffect(()=>{
     localStorage.setItem('highScore', JSON.stringify(highScore))
   },[highScore])
 
   return (
+
     <div id='page'> 
       <Header score={score} highScore={highScore}></Header>
       <GameArea 

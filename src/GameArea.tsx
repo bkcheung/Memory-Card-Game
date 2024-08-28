@@ -79,7 +79,7 @@ function parseResponse(res:Villager[]){
     return villagers
 }
 function randomIds(numVillagers:number) {
-    const numCards = 8;
+    const numCards = 6;
     const ids: number[] = [];
     let i = 0;
     while (i < numCards) {
