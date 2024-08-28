@@ -3,7 +3,6 @@ import "./index.css";
 import Header from "./Header";
 import GameArea from "./GameArea";
 import Footer from "./Footer";
-// import { playBGM } from './audio';
 
 function App() {
   const storeScore = localStorage.getItem("highScore")
@@ -26,8 +25,8 @@ function App() {
 
   return (
     <div id="page">
-      <Header score={score} highScore={highScore}></Header>
-      <GameArea score={incrementScore} resetScore={resetScore}></GameArea>
+      <Header highScore={highScore}></Header>
+      <GameArea currScore={score} score={incrementScore} resetScore={resetScore}></GameArea>
       <Footer />
     </div>
   );

@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import cx from "classnames";
 
 interface gameProps {
+  currScore: number;
   score: () => void;
   resetScore: () => void;
 }
-function GameArea({ score, resetScore }: gameProps) {
+function GameArea({ score, resetScore, currScore }: gameProps) {
   const [villagers, setVillagers] = useState<Villager[]>([]);
   const [cards, setCards] = useState<JSX.Element[]>([]);
   const [clicked, setClicked] = useState<string[]>([]);
@@ -54,7 +55,8 @@ function GameArea({ score, resetScore }: gameProps) {
   }, [villagers, clicked, score]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col justify-center items-center">
+      <div className="text-white">Score: {currScore}/{villagers.length}</div>  
       <div id="game">{cards}</div>
       <div
         className={cx(

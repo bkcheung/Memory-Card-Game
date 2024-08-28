@@ -2,18 +2,17 @@ import ReactHowler from "react-howler";
 import { useState } from "react";
 import cx from "classnames";
 interface headerProps {
-  score: number;
   highScore: number;
 }
-function Header({ score, highScore }: headerProps) {
+function Header({ highScore }: headerProps) {
   const [play, setPlay] = useState(true);
   return (
     <>
       <div className="flex items-center">
         <div id="title"></div>
         <div id="score" className="text-sm md:text-lg">
-          <div>Score: {score}</div>
-          <div>Record: {highScore}</div>
+          <div>High</div>
+          <div>Score: {highScore}</div>
         </div>
       </div>
       <div className="flex items-center">
