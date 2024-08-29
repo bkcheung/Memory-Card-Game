@@ -1,4 +1,4 @@
-import { Villager } from "./gameHelpers";
+import { Villager } from "../gameHelpers";
 
 interface cardProps {
   score: () => void;
