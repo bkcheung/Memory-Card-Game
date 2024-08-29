@@ -1,7 +1,7 @@
 import Card from "./Card";
 import { useState, useEffect } from "react";
 import cx from "classnames";
-import { Villager, randVillagers } from "../gameHelpers";
+import { Villager, randVillagers } from "./gameHelpers";
 
 interface gameProps {
   currScore: number;

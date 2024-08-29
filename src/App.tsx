@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import Header from "./Header";
-import GameArea from "./components/GameArea";
-import Footer from "./components/Footer";
+import GameArea from "./GameArea";
+import Footer from "./Footer";
 
 function App() {
   const storeScore = localStorage.getItem("highScore")
