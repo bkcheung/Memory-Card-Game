@@ -6,6 +6,7 @@ A game where one scores points by clicking on cards once with no repeats. Curren
 * React & Vite
 * useState and useEffect concepts
 * localStorage
+* Vitest, React Testing Library, userEvent for writing tests and mocking API calls
 * [Nookipedia API](https://api.nookipedia.com/doc#/paths/~1villagers/get) to fetch images and villagers information
 
 <b>Disclaimer:</b>
