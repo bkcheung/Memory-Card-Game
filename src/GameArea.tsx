@@ -69,6 +69,7 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
           !reset && "hidden",
         )}>
         <button
+          aria-label="gameover"
           id="gameover"
           onClick={() => {
             resetScore();
@@ -83,6 +84,7 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
           !won && "hidden",
         )}>
         <button
+          aria-label="gameWon"
           id="gameWon"
           onClick={() => {
             resetScore();

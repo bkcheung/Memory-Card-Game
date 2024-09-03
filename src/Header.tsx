@@ -20,6 +20,7 @@ function Header({ highScore }: headerProps) {
           id="music"
           className={cx("", !play && "off")}
           onClick={() => setPlay(!play)}
+          aria-label="music"
         >
           <ReactHowler src="/bgm.flac" playing={play} loop={true} />
         </button>
