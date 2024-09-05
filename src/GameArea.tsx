@@ -19,7 +19,9 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   const [won, setWon] = useState(false);
 
   useEffect(() => {
-      fetch(
+    const getCharData = async () => {
+      try {
+        const response = await fetch(
           "https://api.nookipedia.com/villagers?species=cat&game=nl",
           {
             method: "GET",
@@ -28,19 +30,18 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
               "Accept-Version": "1.0.0",
             },
           },
-        )
-        .then((response)=>{
-          if(response.status>=400){
-            throw new Error("server error");
-          }
-          return response.json();
-          })
-        .then((response) => {
-          setVillagers(response);
-        })
-        .catch((error) => setError(error))
-        .finally(()=> setLoading(false));
-        }, []); //only call API when mounting component
+        );
+        if (!response.ok) throw new Error("Error, please check API request");
+        const villagers = await response.json();
+        setVillagers(villagers);
+      } catch (error:unknown) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }       
+    getCharData();
+  }, []); //only call API when mounting component
   useEffect(() => {
     if (villagers.length) {
       if(clicked.length===villagers.length) setWon(true);
