@@ -10,15 +10,16 @@ interface gameProps {
 }
 function GameArea({ score, resetScore, currScore }: gameProps) {
   const [villagers, setVillagers] = useState<Villager[]>([]);
+  const [error, setError] = useState<unknown>(null);
+  const [loading, setLoading] = useState(true);
+
   const [cards, setCards] = useState<JSX.Element[]>([]);
   const [clicked, setClicked] = useState<string[]>([]);
   const [reset, setReset] = useState(false);
   const [won, setWon] = useState(false);
 
   useEffect(() => {
-    const getCharData = async () => {
-      try {
-        const response = await fetch(
+      fetch(
           "https://api.nookipedia.com/villagers?species=cat&game=nl",
           {
             method: "GET",
@@ -27,16 +28,19 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
               "Accept-Version": "1.0.0",
             },
           },
-        );
-        if (!response.ok) throw new Error("Error, please check API request");
-        const villagers = await response.json();
-        setVillagers(villagers);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCharData();
-  }, []); //only call API when mounting component
+        )
+        .then((response)=>{
+          if(response.status>=400){
+            throw new Error("server error");
+          }
+          return response.json();
+          })
+        .then((response) => {
+          setVillagers(response);
+        })
+        .catch((error) => setError(error))
+        .finally(()=> setLoading(false));
+        }, []); //only call API when mounting component
   useEffect(() => {
     if (villagers.length) {
       if(clicked.length===villagers.length) setWon(true);
@@ -59,6 +63,8 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
     }
   }, [villagers, clicked, score]);
 
+  if (loading) return <p className="text-white">Loading...</p>;
+  if (error) return <p className="text-white">A network error was encountered</p>;
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="text-white">Score: {currScore}/{villagers.length}</div>  
