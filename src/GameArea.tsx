@@ -1,17 +1,19 @@
+// GameArea.tsx
 import Card from "./Card";
 import { useState, useEffect } from "react";
 import cx from "classnames";
 import { Villager, randVillagers } from "./gameHelpers";
 
-interface gameProps {
+interface GameProps {
   currScore: number;
   score: () => void;
   resetScore: () => void;
 }
-function GameArea({ score, resetScore, currScore }: gameProps) {
+function GameArea({ score, resetScore, currScore }: GameProps) {
   const [villagers, setVillagers] = useState<Villager[]>([]);
   const [error, setError] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   const [cards, setCards] = useState<JSX.Element[]>([]);
   const [clicked, setClicked] = useState<string[]>([]);
@@ -21,6 +23,8 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   useEffect(() => {
     const getCharData = async () => {
       try {
+        // Create AbortController for the fetch
+        const controller = new AbortController();
         const response = await fetch(
           "https://api.nookipedia.com/villagers?species=cat&game=nl",
           {
@@ -29,22 +33,57 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
               "X-API-KEY": `${import.meta.env.VITE_AC_KEY}`,
               "Accept-Version": "1.0.0",
             },
-          },
+            signal: controller.signal,
+          }
         );
+
         if (!response.ok) throw new Error("Error, please check API request");
-        const villagers = await response.json();
-        setVillagers(villagers);
-      } catch (error:unknown) {
+
+        // Get total size of data from headers if available
+        const totalSize = Number(response.headers.get('content-length')) || 0;
+        const reader = response.body?.getReader();
+        let receivedLength = 0;
+
+        // Read the response stream
+        const chunks: Uint8Array[] = [];
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            chunks.push(value);
+            receivedLength += value.length;
+
+            // Calculate and update progress
+            if (totalSize) {
+              const progress = (receivedLength / totalSize) * 100;
+              setLoadingProgress(Math.round(progress));
+            }
+          }
+        }
+
+        // Combine chunks and parse JSON
+        const allChunks = new Uint8Array(receivedLength);
+        let position = 0;
+        for (const chunk of chunks) {
+          allChunks.set(chunk, position);
+          position += chunk.length;
+        }
+
+        const result = JSON.parse(new TextDecoder().decode(allChunks));
+        setVillagers(result);
+      } catch (error: unknown) {
         setError(error);
       } finally {
         setLoading(false);
       }
-    }       
+    };
     getCharData();
-  }, []); //only call API when mounting component
+  }, []); // only call API when mounting component
+
   useEffect(() => {
     if (villagers.length) {
-      if(clicked.length===villagers.length) setWon(true);
+      if(clicked.length === villagers.length) setWon(true);
       else{
         const rVillagers = randVillagers(villagers, clicked);
         const newCards = rVillagers.map((villager, index) => {
@@ -64,8 +103,23 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
     }
   }, [villagers, clicked, score]);
 
-  if (loading) return <p className="text-white">Loading...</p>;
+  if (loading) {
+    return (
+      <div className="text-white flex flex-col items-center gap-2">
+        <p>Loading...</p>
+        <div className="w-64 h-4 bg-white/30 rounded-full">
+          <div 
+            className="h-full bg-white rounded-full transition-all duration-300 ease-in-out"
+            style={{ width: `${loadingProgress}%` }}
+          ></div>
+        </div>
+        <p>{loadingProgress}%</p>
+      </div>
+    );
+  }
+
   if (error) return <p className="text-white">A network error was encountered</p>;
+
   return (
     <main className="flex flex-col justify-center items-center w-full h-[60%] ">
       <div className="text-white">Score: {currScore}/{villagers.length}</div>  
@@ -103,6 +157,5 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
     </main>
   );
 }
-
 
 export default GameArea;
