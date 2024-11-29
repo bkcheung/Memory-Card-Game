@@ -24,7 +24,7 @@ function App() {
   }, [highScore]);
 
   return (
-    <div id="page">
+    <div className="bg-[url('/ac.jpg')] bg-cover bg-bottom min-h-[100vh] flex flex-col items-center justify-between">
       <Header highScore={highScore}></Header>
       <GameArea currScore={score} score={incrementScore} resetScore={resetScore}></GameArea>
       <Footer />

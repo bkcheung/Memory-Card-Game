@@ -67,17 +67,17 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
   if (loading) return <p className="text-white">Loading...</p>;
   if (error) return <p className="text-white">A network error was encountered</p>;
   return (
-    <div className="flex flex-col justify-center items-center">
+    <main className="flex flex-col justify-center items-center w-full h-[60%] ">
       <div className="text-white">Score: {currScore}/{villagers.length}</div>  
-      <div id="game">{cards}</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 md: gap-6 p-4">{cards}</div>
       <div
         className={cx(
-          "bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
+          "bg-black/70 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
           !reset && "hidden",
         )}>
         <button
           aria-label="gameover"
-          id="gameover"
+          className="bg-[url('/gameover.jpg')] bg-cover bg-bottom w-80 md:w-[50vw] h-48 md:h-[50vh] rounded-lg md:rounded-3xl"
           onClick={() => {
             resetScore();
             setReset(false);
@@ -87,12 +87,12 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
       </div>
       <div
         className={cx(
-          "bg-white/30 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
+          "bg-black/70 fixed top-0 left-0 flex items-center justify-center min-h-lvh min-w-full",
           !won && "hidden",
         )}>
         <button
           aria-label="gameWon"
-          id="gameWon"
+          className="bg-[url('/gameWon.jpg')] bg-cover bg-bottom w-80 md:w-[50vw] h-48 md:h-[50vh] rounded-lg md:rounded-3xl"
           onClick={() => {
             resetScore();
             setWon(false);
@@ -100,7 +100,7 @@ function GameArea({ score, resetScore, currScore }: gameProps) {
           }}
         ></button>
       </div>
-    </div>
+    </main>
   );
 }
 

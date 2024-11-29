@@ -6,7 +6,16 @@ export default {
     "./index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        '2' : 'repeat(2, 9rem)',
+        '3' : 'repeat(3, 16rem)',
+      },
+      gridTemplateRows:{
+        '2' : 'repeat(2, 16rem)',
+        '3' : 'repeat(3, 9rem)',
+      }
+    },
   },
   plugins: [],
 }
