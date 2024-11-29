@@ -14,6 +14,8 @@ interface cardProps {
 function Card({ score, villager, clicked, setClicked, setReset }: cardProps) {
   const [isSelected, setIsSelected] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
+
 
   const handleClick = () => {
     setIsSelected(true);
@@ -24,15 +26,20 @@ function Card({ score, villager, clicked, setClicked, setReset }: cardProps) {
         console.log("Audio playback failed:", error);
       });
     }
+
+    // Set feedback
+    const isCorrect = !clicked.includes(`${villager.name}`);
+    setFeedback(isCorrect ? 'correct' : 'incorrect');
     
     setTimeout(() => {
-        if (!clicked.includes(`${villager.name}`)) {
-          setClicked([...clicked, `${villager.name}`]);
-          score();
-        } else {
-          setReset(true);
-        }
+      if (isCorrect) {
+        setClicked([...clicked, `${villager.name}`]);
+        score();
+      } else {
+        setReset(true);
+      }
       setIsSelected(false);
+      setFeedback(null);
     }, 500);
   };
 
@@ -43,7 +50,9 @@ function Card({ score, villager, clicked, setClicked, setReset }: cardProps) {
         "relative bg-white/50 rounded-xl flex flex-col items-center transition-all duration-500",
         "hover:bg-white/60 hover:scale-[1.02] hover:shadow-lg",
         "active:scale-95",
-          isSelected && "animate-select pointer-events-none"
+          isSelected && "animate-select pointer-events-none",
+          feedback === 'correct' && "border-green-500/30 border-8",
+          feedback === 'incorrect' && "border-red-500/30 border-8",
       )}
       onClick={handleClick}
     >

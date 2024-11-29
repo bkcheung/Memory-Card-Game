@@ -15,9 +15,6 @@ export default {
         '2': 'repeat(2, 16rem)',
         '3': 'repeat(3, 9rem)',
       },
-      transitionProperty: {
-        'transform': 'transform',
-      },
       animation: {
         'select': 'select 500ms ease-in-out',
       },
